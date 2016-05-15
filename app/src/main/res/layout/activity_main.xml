@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+    
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.6"
+            android:orientation="vertical" >
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/strick"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:showDividers="middle" >
+
+                <RadioButton
+                    android:id="@+id/home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableTop="@drawable/home_state"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="@string/home"
+                    android:textColor="@color/press_menu" />
+
+                <RadioButton
+                    android:id="@+id/assess"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableTop="@drawable/assess_state"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="@string/assess"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/small_circle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableTop="@drawable/circle_state"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="@string/small_circle"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/my_center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableTop="@drawable/my_state"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="@string/my_center"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

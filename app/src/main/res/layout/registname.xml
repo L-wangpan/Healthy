@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="100dp" >
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:textSize="16sp"
+			android:layout_centerInParent="true"
+			android:textColor="@color/bg_color_nomal"
+			android:background="@drawable/title_shape"
+			android:gravity="center"
+            android:text="@string/request_name" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_height="100dp" >
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/my_pic_shape"
+            android:src="@drawable/wo"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="100dp" >
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+			android:layout_marginLeft="80dp"
+			android:layout_marginRight="80dp"
+			android:background="@color/strick"
+			android:layout_centerInParent="true"
+             />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" >
+        <Button 
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="@string/next"
+            android:background="@drawable/bg_shape"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

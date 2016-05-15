@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="eat">
+        <item>苹果</item>
+        <item>香蕉</item>
+        <item>粥</item>
+        <item>橙汁</item>
+    </string-array>
+    <string-array name="sports">
+        <item>跳绳x个/min</item>
+        <item>游泳xx/h</item>
+        <item>跑步xx/xx</item>
+        <item>平板支撑x个/xx</item>
+    </string-array>
+    <string-array name="circles">
+        <item>标题</item>
+        <item>标题</item>
+        <item>标题</item>
+        <item>标题</item>
+        <item>标题</item>
+        <item>标题</item>
+    </string-array>
+</resources>

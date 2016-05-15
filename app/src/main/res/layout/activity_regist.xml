@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:src="@drawable/logo" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/regist_input_id"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:background="@color/strick"
+            android:cursorVisible="true"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/id">
+
+            <requestFocus />
+        </EditText>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/regist_input_pass"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+           android:layout_marginLeft="50dp"
+            android:background="@color/strick"
+            android:cursorVisible="false"
+            android:layout_centerInParent="true"
+            android:ems="10"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:hint="@string/input_pas"
+            android:password="true">
+
+            <requestFocus />
+        </EditText>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/regist_yz_pass"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="60dp"
+            android:background="@color/strick"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/conform"
+            android:layout_alignTop="@+id/send_pass"
+            >
+
+            <requestFocus />
+        </EditText>
+        <Button
+            android:id="@+id/send_pass"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/regist_yz_pass"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:text="@string/send_pass"
+            android:background="@drawable/normal_bg"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/has_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="75dp"
+            android:textSize="12sp"
+            android:text="@string/have_pass"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="75dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5">
+
+        <Button
+            android:id="@+id/regist_bg"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/regist_bt"
+            android:onClick="onclick"
+            android:text="@string/regist"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"></LinearLayout>
+
+</LinearLayout>
