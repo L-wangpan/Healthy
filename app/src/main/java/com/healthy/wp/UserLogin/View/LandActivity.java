@@ -9,29 +9,31 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.healthy.wp.MyView.CircleProgress;
 import com.healthy.wp.R;
 import com.healthy.wp.UserLogin.ITF.ITloginView;
 import com.healthy.wp.UserLogin.model.UserMessage;
 import com.healthy.wp.UserLogin.presenter.LoginPresenter;
-
 import com.healthy.wp.UserMenu.View.MainActivity;
-
 
 public class LandActivity extends Activity implements ITloginView {
 
     EditText userinput, passinput;
     boolean result = false;
     UserMessage userMessage;
+    CircleProgress circleProgress;
     LoginPresenter loginPresenter;
     ProgressDialog progressDialog;
     View v;
+    View pres;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.land);
         LayoutInflater inflater = LayoutInflater.from(getApplication());
-        v = inflater.inflate(R.layout.action,null);
-        MyActionbar.setActionBar(getActionBar(),v,"登录",2);
+        v = inflater.inflate(R.layout.action, null);
+        MyActionbar.setActionBar(getActionBar(), v, "登录", 2);
         initView();
     }
 
@@ -41,7 +43,8 @@ public class LandActivity extends Activity implements ITloginView {
         userinput.setText("admin");
         passinput.setText("admin");
         userMessage = new UserMessage();
-
+        pres = LayoutInflater.from(getApplication()).inflate(R.layout.gressbar, null);
+        circleProgress = (CircleProgress) pres.findViewById(R.id.progress);
     }
 
     public void onclick(View v) {
@@ -55,7 +58,7 @@ public class LandActivity extends Activity implements ITloginView {
                 loginPresenter.login();
                 break;
             case R.id.regist_user:
-                startActivity(new Intent(LandActivity.this,RegistActivity.class));
+                startActivity(new Intent(LandActivity.this, RegistActivity.class));
                 break;
             default:
                 break;
@@ -64,15 +67,16 @@ public class LandActivity extends Activity implements ITloginView {
 
     @Override
     public void showDialog() {
-         progressDialog = new 	ProgressDialog(this);
-        progressDialog.setTitle("正在登陆......");
+        progressDialog = new ProgressDialog(this);
         progressDialog.show();
+        progressDialog.setContentView(pres);
+        circleProgress.startAnim();
     }
 
 
     @Override
     public void StartIntentActivity(UserMessage s) {
-        if(s.getCode().equals("1")) {
+        if (s.getCode().equals("1")) {
             dimissDialog();
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
@@ -81,9 +85,8 @@ public class LandActivity extends Activity implements ITloginView {
             intent.setClass(getApplication(), MainActivity.class);
             startActivity(intent);
             finish();
-        }
-        else {
-            Toast.makeText(getApplication(),"登陆失败请重新登陆！",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplication(), "登陆失败请重新登陆！", Toast.LENGTH_LONG).show();
         }
     }
 

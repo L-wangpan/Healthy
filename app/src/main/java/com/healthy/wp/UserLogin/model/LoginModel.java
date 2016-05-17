@@ -17,6 +17,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by wan_g_000 on 2016/3/14.
@@ -36,6 +38,7 @@ public class LoginModel {
     }
 
     public void Login(final UserMessage user, final LoginCallBack loginCallBack){
+
         String url = "http://xywangpan.cn:8081/healthy/servlet/LandServlet";
 //                String url="http://192.168.253.2:8080/healthAppService/login";
                 System.out.println("asdas"+url);
@@ -52,8 +55,17 @@ public class LoginModel {
 
                             JSONObject js = new JSONObject(arg0.toString());
                             System.out.println("6666"+js.toString());
-                            UserMessage userthis =  parsejson(js);
-                            loginCallBack.Success(userthis);
+                            final UserMessage userthis =  parsejson(js);
+                            Timer timer = new Timer();
+                            TimerTask task = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    loginCallBack.Success(userthis);
+                                }
+                            };
+                            timer.schedule(task,2000);
+
+
                         } catch (JSONException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();

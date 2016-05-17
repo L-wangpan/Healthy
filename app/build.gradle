@@ -6,7 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.healthy.healthy"
-        minSdkVersion 11
+        multiDexEnabled=true
+        minSdkVersion 14
         targetSdkVersion 17
         versionCode 1
         versionName "1.0"
@@ -22,8 +23,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile project(':volley')
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.1.5'
 }
