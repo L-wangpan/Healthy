@@ -6,12 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
@@ -31,12 +34,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+
 public class SmallCircle extends Fragment implements ITRefreshUI {
     View view = null;
     ExpandableListView mlistview;
     ImageView back;
+    SwipeRefreshLayout refresh;
     ScrollView sv;
     int height;
+    ScrollView scroll;
     int width;
     List<String> strs = new ArrayList<String>();
     CiclePresentor ciclePresentor;
@@ -56,10 +62,13 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
         width = wm.getDefaultDisplay().getWidth();
         height = wm.getDefaultDisplay().getHeight();
         mlistview = (ExpandableListView) view.findViewById(R.id.my_cicel_list);
+        scroll = (ScrollView)view.findViewById(R.id.scrollView1);
+        refresh = (SwipeRefreshLayout)view.findViewById(R.id.refresh);
         back = (ImageView) view.findViewById(R.id.backme);
         sv = (ScrollView) view.findViewById(R.id.scrollView1);
         ciclePresentor = new CiclePresentor(getActivity(), this);
         RelativeLayout main = (RelativeLayout) view.findViewById(R.id.main_linear);
+
         Bitmap bt1 = BitmapFactory.decodeResource(getResources(), R.drawable.smallbac);
         Log.i("imageview", "width: " + bt1.getWidth());
         Log.i("imageview", "height: " + bt1.getHeight());
@@ -70,20 +79,58 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
         ic.setImageResource(R.drawable.myicon);
         params.setMargins(800, bt1.getHeight() - (bt1.getHeight() - bt2.getHeight()) / 4, 0, 0);
         main.addView(ic, params);
-        List<Talk> talks = new ArrayList<Talk>();
-        Talk tk1 = new Talk("小雷", getResources().getString(R.string.sbdetile));
-        tk1.addPerson(tk1.new SBtalk("小王", "你好！"));
-        talks.add(tk1);
-        Talk tk2 = new Talk(getResources().getString(R.string.sbname), getResources().getString(R.string.sbdetile));
-        tk2.addPerson(tk2.new SBtalk("小张", "你好！"));
-        talks.add(tk2);
-        mlistview.setAdapter(new expandlistviewadapter(talks));
-        for (int i = 0; i < talks.size(); i++)
-            mlistview.expandGroup(i);
-        mlistview.setGroupIndicator(null);
-        mlistview.setDividerHeight(4);
-        setListViewHeightBasedOnChildren(mlistview);
+
+
+        setListView();
+
     }
+private void setListView(){
+    List<Talk> talks = new ArrayList<Talk>();
+    Talk tk1 = new Talk("小雷", getResources().getString(R.string.sbdetile));
+    tk1.addPerson(tk1.new SBtalk("小王", "你好！"));
+    talks.add(tk1);
+    Talk tk2 = new Talk(getResources().getString(R.string.sbname), getResources().getString(R.string.sbdetile));
+    tk2.addPerson(tk2.new SBtalk("小张", "你好！"));
+    talks.add(tk2);
+    mlistview.setAdapter(new expandlistviewadapter(talks));
+    for (int i = 0; i < talks.size(); i++)
+        mlistview.expandGroup(i);
+    mlistview.setGroupIndicator(null);
+    mlistview.setDividerHeight(4);
+    setListViewHeightBasedOnChildren(mlistview);
+    refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // 停止刷新
+                    refresh.setRefreshing(false);
+                }
+            }, 3000); // 5秒后发送消息，停止刷新
+        }
+    });
+    // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
+    refresh.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+            android.R.color.holo_orange_light, android.R.color.holo_red_light);
+    refresh.setDistanceToTriggerSync(400);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+    refresh.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
+    refresh.setSize(SwipeRefreshLayout.LARGE);
+    mlistview.setOnScrollListener(new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView absListView, int i) {
+
+        }
+
+        @Override
+        public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+            if (i == 0)
+                refresh.setEnabled(true);
+            else
+                refresh.setEnabled(false);
+        }
+    });
+}
 
 
     public void setListViewHeightBasedOnChildren(ExpandableListView listView) {

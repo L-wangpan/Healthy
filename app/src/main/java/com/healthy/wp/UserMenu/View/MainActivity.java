@@ -59,11 +59,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // TODO Auto-generated method stub
 //        SongleVolley.getInstance(getApplication());
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
-        bhome = (RadioButton) findViewById(R.id.home);
+//        bhome = (RadioButton) findViewById(R.id.home);
         bassess = (RadioButton) findViewById(R.id.assess);
         bsmall = (RadioButton) findViewById(R.id.small_circle);
         bmy = (RadioButton) findViewById(R.id.my_center);
-        fragments.add(new FistPage());
+//        fragments.add(new FistPage());
         fragments.add(new MessureFragment());
         fragments.add(new SmallCircle());
         fragments.add(new MyFragment());
@@ -98,7 +98,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-            case R.id.home:
+          /*  case R.id.home:
                 viewPager.setCurrentItem(0);
 //                MyActionbar.setActionBar(getActionBar(), v,
 //                        "首页", 1);
@@ -107,27 +107,27 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 bsmall.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                 bmy.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                 break;
-            case R.id.assess:
-                viewPager.setCurrentItem(1);
+          */  case R.id.assess:
+                viewPager.setCurrentItem(0);
 //                MyActionbar.setActionBar(getActionBar(), v,
 //                        "测评", 3);
-                bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
+//                bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                 bassess.setTextColor(getResources().getColor(R.color.bg_color_press));
                 bsmall.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                 bmy.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                 break;
             case R.id.small_circle:
-                viewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(1);
 //                MyActionbar.setActionBar(getActionBar(), v,
 //                        "小圈", 1);
-                bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
+//                bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                 bassess.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                 bsmall.setTextColor(getResources().getColor(R.color.bg_color_press));
                 bmy.setTextColor(getResources().getColor(R.color.bg_color_nomal));
 
                 break;
             case R.id.my_center:
-                viewPager.setCurrentItem(3);
+                viewPager.setCurrentItem(2);
 //                MyActionbar.setActionBar(getActionBar(), v,
 //                        "我", 1);
                 bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
@@ -181,7 +181,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         public void onPageSelected(int id) {
             switch (id) {
-                case 0:
+           /*     case 0:
                     bhome.setChecked(true);
                     MyActionbar.setActionBar(getActionBar(),
                             v, "首页", 1);
@@ -189,34 +189,34 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     bassess.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bsmall.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bmy.setTextColor(getResources().getColor(R.color.bg_color_nomal));
-                    break;
-                case 1:
+                    break;*/
+                case 0:
                     bassess.setChecked(true);
                     MyActionbar.setActionBar(getActionBar(),
                             v, "测评", 1);
-                    bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
+//                    bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bassess.setTextColor(getResources()
                             .getColor(R.color.bg_color_press));
                     bsmall.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bmy.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     break;
-                case 2:
+                case 1:
 
                     bsmall.setChecked(true);
                     MyActionbar.setActionBar(getActionBar(),
                             v, "小圈", 6);
                     right.setOnClickListener(new SencondLisenner());
-                    bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
+//                    bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bassess.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bsmall.setTextColor(getResources().getColor(R.color.bg_color_press));
                     bmy.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     break;
-                case 3:
+                case 2:
                     bmy.setChecked(true);
                     MyActionbar.setActionBar(getActionBar(),
                             v, "我", 4);
                     right.setOnClickListener(new ThrirdLisenner());
-                    bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
+//                    bhome.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bassess.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bsmall.setTextColor(getResources().getColor(R.color.bg_color_nomal));
                     bmy.setTextColor(getResources().getColor(R.color.bg_color_press));

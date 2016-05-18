@@ -94,7 +94,6 @@ public class CircleProgress extends View {
             y = mArcPoint[i].y - 2 * mArcPoint[i].y * itemFactor;
             canvas.drawCircle(x, y, mPointRadius, mPaint);
         }
-
         canvas.restore();
 
         if (mStartAnim) {
@@ -104,7 +103,7 @@ public class CircleProgress extends View {
 
     private void calPoints(float factor) {
         int radius = (int) (mViewSize / 8 * factor);
-        mPointRadius = radius / 12;
+        mPointRadius = radius / 8;
 
         for (int i = 0; i < POINT_NUM; ++i) {
             float x = radius * - (float) Math.sin(DEGREE * DELTA_ANGLE * i);
