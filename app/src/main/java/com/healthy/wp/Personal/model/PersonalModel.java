@@ -1,6 +1,7 @@
 package com.healthy.wp.Personal.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,7 +21,8 @@ import java.util.Map;
  * Created by wan_g_000 on 2016/5/3.
  */
 public class PersonalModel {
-    public void refreshPesonal(final ITmodel model, Context context,String url,final historyData data){
+    public void refreshPesonal(final ITmodel model, Context context,final historyData data){
+        String url = "http://172.25.204.2:8080/healthAppService/GetDetails";
         StringRequest stringRequest  = new StringRequest(Request.Method.POST,
                 url, new Response.Listener() {
 
@@ -30,8 +32,9 @@ public class PersonalModel {
                 try {
 
                     JSONObject js = new JSONObject(arg0.toString());
+                    String path =  js.getString("imagepath");
                     System.out.println("6666"+js.toString());
-                    model.success(1);
+                    model.success(path);
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -50,12 +53,16 @@ public class PersonalModel {
             protected Map<String, String> getParams() {
                 // 在这里设置需要post的参数
                 Map<String, String> map = new HashMap<String, String>();
+                map.put("id",data.getUser_id());
                 map.put(UrlConfig.USER_NAME, data.getUserName());
-                map.put(UrlConfig.USER_PASSWORD, data.getUserPassword());
                 map.put(UrlConfig.HEIGHT,data.getHeight());
                 map.put(UrlConfig.WEIGHT,data.getWeight());
+                map.put(UrlConfig.USER_DATE,data.getBorn());
+                map.put(UrlConfig.SEX,data.getSex());
                 System.out.println(map);
+                Log.d("Tag","----"+map.toString());
                 return map;
+
             }
         };
         SongleVolley.getInstance(context).addtoRequestQueue(stringRequest);

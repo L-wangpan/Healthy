@@ -107,7 +107,7 @@ private void setListView(){
                     // 停止刷新
                     refresh.setRefreshing(false);
                 }
-            }, 3000); // 5秒后发送消息，停止刷新
+            }, 3000); // 3秒后发送消息，停止刷新
         }
     });
     // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色

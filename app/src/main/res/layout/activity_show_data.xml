@@ -1,187 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:scrollbars="none"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-
-            <ImageView
-                android:id="@+id/weight_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/weight_small_icon" />
-
-            <TextView
-                android:id="@+id/weight_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/weight_pic"
-                android:text="体重45.0kg"
-                android:textColor="@color/chengse"
-                android:textSize="8sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/weight_pic"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="5dp"
-                android:text="5月2日 22:08"
-                android:textSize="8sp" />
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:src="@drawable/modify" />
-
-        </RelativeLayout>
-
-        <com.healthy.wp.MyView.ShowView
-            android:id="@+id/v1"
-            android:layout_width="wrap_content"
-            android:layout_height="400dp">
-
-        </com.healthy.wp.MyView.ShowView>
-    </LinearLayout>
+    android:orientation="vertical"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <ImageView
+                    android:id="@+id/weight_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/weight_small_icon" />
+
+                <TextView
+                    android:id="@+id/weight_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/weight_pic"
+                    android:text="体重45.0kg"
+                    android:textColor="@color/chengse"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/weight_pic"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:text="5月2日 22:08"
+                    android:textSize="8sp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:src="@drawable/modify" />
+
+            </RelativeLayout>
+
+            <com.healthy.wp.MyView.ShowView
+                android:id="@+id/v1"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp">
+
+            </com.healthy.wp.MyView.ShowView>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/fat_lv_pic"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <ImageView
+                    android:id="@+id/fat_lv_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/fat_lv_small_icon" />
+
+                <TextView
+                    android:id="@+id/fat_lv_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/fat_lv_pic"
+                    android:text="脂肪率45.0kg"
+                    android:textColor="@color/chengse"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fat_lv_pic"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:text="5月2日 22:08"
+                    android:textSize="8sp" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:src="@drawable/modify" />
+
+            </RelativeLayout>
+
+            <com.healthy.wp.MyView.ShowView
+                android:id="@+id/v2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/fat_lv_small_icon" />
+                android:layout_height="400dp">
 
-            <TextView
-                android:id="@+id/fat_lv_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/fat_lv_pic"
-                android:text="脂肪率45.0kg"
-                android:textColor="@color/chengse"
-                android:textSize="8sp" />
+            </com.healthy.wp.MyView.ShowView>
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/fat_lv_pic"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="5dp"
-                android:text="5月2日 22:08"
-                android:textSize="8sp" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:src="@drawable/modify" />
-
-        </RelativeLayout>
-
-        <com.healthy.wp.MyView.ShowView
-            android:id="@+id/v2"
-            android:layout_width="wrap_content"
-            android:layout_height="400dp">
-
-        </com.healthy.wp.MyView.ShowView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/fat_pic"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <ImageView
+                    android:id="@+id/fat_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/fat_small_icon" />
+
+                <TextView
+                    android:id="@+id/fat_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/fat_pic"
+                    android:text="脂肪45.0kg"
+                    android:textColor="@color/chengse"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fat_pic"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:text="5月2日 22:08"
+                    android:textSize="8sp" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:src="@drawable/modify" />
+
+            </RelativeLayout>
+
+            <com.healthy.wp.MyView.ShowView
+                android:id="@+id/v3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/fat_small_icon" />
+                android:layout_height="400dp">
 
-            <TextView
-                android:id="@+id/fat_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/fat_pic"
-                android:text="脂肪45.0kg"
-                android:textColor="@color/chengse"
-                android:textSize="8sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/fat_pic"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="5dp"
-                android:text="5月2日 22:08"
-                android:textSize="8sp" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:src="@drawable/modify" />
-
-        </RelativeLayout>
-
-        <com.healthy.wp.MyView.ShowView
-            android:id="@+id/v3"
-            android:layout_width="wrap_content"
-            android:layout_height="400dp">
-
-        </com.healthy.wp.MyView.ShowView>
+            </com.healthy.wp.MyView.ShowView>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </ScrollView>

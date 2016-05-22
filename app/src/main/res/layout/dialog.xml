@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/camera"
+        android:id="@+id/taker"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@null"
@@ -16,7 +16,7 @@
     <include layout="@layout/strick_layout"></include>
 
     <Button
-        android:id="@+id/pics"
+        android:id="@+id/camera"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@null"

@@ -61,7 +61,7 @@
                     android:layout_toRightOf="@+id/textshow01"
                     android:background="@drawable/mybutton"
                     android:text="0.0"
-                    android:id="@+id/fat_bg"
+                    android:id="@+id/fat_bgg"
                     android:textColor="@color/white" >
                 </Button>
             </RelativeLayout>

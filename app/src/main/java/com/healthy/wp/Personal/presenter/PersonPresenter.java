@@ -18,8 +18,8 @@ public class PersonPresenter {
     public void refreshPersonal(historyData person, final Context context){
             new PersonalModel().refreshPesonal(new ITmodel() {
                 @Override
-                public void success(int code) {
-                    callback.success(code);
+                public void success(String path) {
+                    callback.success(path);
 
                 }
 
@@ -27,7 +27,7 @@ public class PersonPresenter {
                 public void fail(int code) {
                     callback.Error(code);
                 }
-            },context,"",person);
+            },context,person);
     }
 
 }

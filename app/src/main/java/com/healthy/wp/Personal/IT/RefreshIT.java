@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface RefreshIT {
     void Error(int code);
-    void success(int code);
+    void success(String path);
     void RefreshUI(PlanResult ps);
     void RefreshMyId(List<historyData> datas);
 }

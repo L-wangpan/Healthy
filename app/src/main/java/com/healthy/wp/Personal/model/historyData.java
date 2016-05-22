@@ -1,15 +1,16 @@
 package com.healthy.wp.Personal.model;
 
-import java.sql.Date;
 
 /**
  * Created by wan_g_000 on 2016/5/3.
  */
 public class historyData {
-    private String name, height, weight, bmi, fat, fat_lv, lean, water, personal_des;
-    Date born;
+    private String name, height, weight, bmi, sex,fat, fat_lv, lean, water, personal_des;
+    String born;
     String userName;
     String userPassword;
+    String user_id;
+
     public String getUserName() {
         return userName;
     }
@@ -26,16 +27,38 @@ public class historyData {
         this.userPassword = userPassword;
     }
 
-    public historyData(String height, String weight) {
-        this.height = height;
-        this.weight = weight;
+
+    public String getSex() {
+        return sex;
     }
 
-    public Date getBorn() {
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public historyData(String id,String username, String height, String weight, String sex, String date) {
+        this.height = height;
+        this.userName=username;
+        this.user_id=id;
+        this.weight = weight;
+        this.sex=sex;
+        this.born=date;
+
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getBorn() {
         return born;
     }
 
-    public void setBorn(Date born) {
+    public void setBorn(String born) {
         this.born = born;
     }
 

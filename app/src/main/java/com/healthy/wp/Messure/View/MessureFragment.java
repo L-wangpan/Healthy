@@ -18,7 +18,6 @@ import com.healthy.wp.Messure.presenter.MessurePresenter;
 import com.healthy.wp.MyView.ShowDataActivity;
 import com.healthy.wp.R;
 import com.healthy.wp.UserLogin.model.UserMessage;
-
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MessureFragment extends Fragment implements ITUI{
 
@@ -36,18 +35,11 @@ public class MessureFragment extends Fragment implements ITUI{
 	private void initView(){
 		myView = new MyView(getActivity());
 		myView = (MyView)view.findViewById(R.id.myview);
-		bt=(Button)view.findViewById(R.id.fat_bg);
 		UserMessage userMessage = new UserMessage();
 		userMessage.setFat("22.03");
 		userMessage.setHeight("175");
 		userMessage.setWeight("60");
 		myView.drawData(userMessage);
-		bt.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				startAnotherActivity();
-			}
-		});
 	}
 
 	@Override
@@ -63,7 +55,8 @@ public class MessureFragment extends Fragment implements ITUI{
 	public void onClick(View view) {
 		switch (view.getId())
 		{
-			case R.id.fat_bg:
+
+			case R.id.fat_bgg:
 				startAnotherActivity();
 				break;
 			case R.id.water_bg:

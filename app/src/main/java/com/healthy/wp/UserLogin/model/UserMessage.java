@@ -10,12 +10,21 @@ public class UserMessage implements Serializable{
     private String password;
     private String code;
     String weight="47";
+    String id;
     String fat="11.06";
     String height="163";
 
     public UserMessage(String username, String password) {
         this.username=username;
         this.password=password;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getWeight() {

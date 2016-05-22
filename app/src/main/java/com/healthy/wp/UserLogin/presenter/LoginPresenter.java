@@ -41,6 +41,8 @@ public class LoginPresenter {
                 callBack.dimissDialog();
                 final UserMessage userMessage = new UserMessage();
                 userMessage.setCode(s.getCode());
+                userMessage.setId(s.getId());
+                userMessage.setUsername(s.getUsername());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -59,7 +61,7 @@ public class LoginPresenter {
         loginModel.regist(user, new LoginCallBack() {
             @Override
             public void Success(UserMessage s) {
-                    refreshIT.success(Integer.parseInt(s.getCode()));
+                    refreshIT.success(s.getCode());
             }
 
             @Override

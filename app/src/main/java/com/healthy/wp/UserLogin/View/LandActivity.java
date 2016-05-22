@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.healthy.wp.MyApplycation;
 import com.healthy.wp.MyView.CircleProgress;
 import com.healthy.wp.R;
 import com.healthy.wp.UserLogin.ITF.ITloginView;
@@ -24,22 +26,19 @@ public class LandActivity extends Activity implements ITloginView {
     CircleProgress circleProgress;
     LoginPresenter loginPresenter;
     ProgressDialog progressDialog;
-    View v;
+    MyApplycation myApplycation;
     View pres;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.land);
-        LayoutInflater inflater = LayoutInflater.from(getApplication());
-        v = inflater.inflate(R.layout.action, null);
-        MyActionbar.setActionBar(getActionBar(), v, "登录", 2);
         initView();
     }
 
     private void initView() {
         userinput = (EditText) findViewById(R.id.input_id);
         passinput = (EditText) findViewById(R.id.input_pass);
+        myApplycation = (MyApplycation) getApplication();
         userinput.setText("admin");
         passinput.setText("admin");
         userMessage = new UserMessage();
@@ -48,7 +47,6 @@ public class LandActivity extends Activity implements ITloginView {
     }
 
     public void onclick(View v) {
-
         switch (v.getId()) {
             case R.id.land:
                 userMessage.setUsername(userinput.getText().toString());
@@ -78,6 +76,10 @@ public class LandActivity extends Activity implements ITloginView {
     public void StartIntentActivity(UserMessage s) {
         if (s.getCode().equals("1")) {
             dimissDialog();
+            myApplycation.setUser_id(userinput.getText().toString());
+            myApplycation.setPassword(passinput.getText().toString());
+            myApplycation.setId(s.getId());
+            Log.d("Tag",myApplycation.getId()+"asdasdas");
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putSerializable("user", s);

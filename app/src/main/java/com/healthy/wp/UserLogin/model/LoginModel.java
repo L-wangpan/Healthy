@@ -40,7 +40,7 @@ public class LoginModel {
     public void Login(final UserMessage user, final LoginCallBack loginCallBack){
 
         String url = "http://xywangpan.cn:8081/healthy/servlet/LandServlet";
-//                String url="http://192.168.253.2:8080/healthAppService/login";
+//                String url="http://172.25.204.2:8080/healthAppService/login";
                 System.out.println("asdas"+url);
 //                RequestQueue requestQueue = Volley.newRequestQueue(context);
                 StringRequest stringrequest;
@@ -55,6 +55,8 @@ public class LoginModel {
 
                             JSONObject js = new JSONObject(arg0.toString());
                             System.out.println("6666"+js.toString());
+                            Log.d("Tag",js.toString());
+
                             final UserMessage userthis =  parsejson(js);
                             Timer timer = new Timer();
                             TimerTask task = new TimerTask() {
@@ -94,7 +96,7 @@ public class LoginModel {
         SongleVolley.getInstance(context).addtoRequestQueue(stringrequest);
     }
     public void regist(final UserMessage user, final LoginCallBack loginCallBack){
-        String url = "http://xywangpan.cn:8081/healthy/servlet/RegistServlet";
+        String url = "http://172.25.204.2:8080/healthAppService/Register";
 //                String url="http://192.168.253.2:8080/healthAppService/login";
         StringRequest stringrequest;
         stringrequest = new StringRequest(Request.Method.POST,
@@ -107,7 +109,9 @@ public class LoginModel {
 
                     JSONObject js = new JSONObject(arg0.toString());
                     System.out.println("6666"+js.toString());
+                    Log.d("Tag",js.toString());
                     UserMessage userthis =  parsejson(js);
+                    System.out.println(userthis.toString());
                     loginCallBack.Success(user);
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
@@ -138,6 +142,7 @@ public class LoginModel {
             Log.d("Tag",js.toString());
             user.setCode(js.getString("code"));
             Log.d("Tag",user.getCode()+"");
+            user.setId(js.getString("id"));
             System.out.println(user.getCode()+"9999");
         } catch (JSONException e) {
             e.printStackTrace();

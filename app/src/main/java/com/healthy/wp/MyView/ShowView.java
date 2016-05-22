@@ -23,10 +23,11 @@ public class ShowView extends View {
     Paint p;
     LinearLayout l1;
     Context context;
+    String tag="重量";
     int dwidth, dheight;
     int x1, y1, x2, y2, x, y;
     Date date;
-
+    UserMessage user;
     public ShowView(Context context, List<UserMessage> us) {
 
         super(context);
@@ -71,8 +72,6 @@ public class ShowView extends View {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-
-
         drawzhou(canvas);
     }
 
@@ -113,13 +112,18 @@ public class ShowView extends View {
         p.setColor(getResources().getColor(R.color.black));
 
         p.setStrokeWidth(2);
-        p.setTextSize(64);
-        canvas.drawText("重量",l1.getWidth()/4-DipTopX.dipTopx(context,24),y2+DipTopX.dipTopx(context,100),p);
-        canvas.drawText("60"+"千克",l1.getWidth()/4-DipTopX.dipTopx(context,32),y2+DipTopX.dipTopx(context,120),p);
+        p.setTextSize(36);
+        canvas.drawText(tag,l1.getWidth()/4-DipTopX.dipTopx(context,24),y2+DipTopX.dipTopx(context,100),p);
+        canvas.drawText("60"+"千克",l1.getWidth()/4-tag.length()/2*DipTopX.dipTopx(context,32),y2+DipTopX.dipTopx(context,120),p);
+
     }
 
+public void setTag(String s){
+    this.tag=s;
+}
 
-    private void setUsers() {
+    private void setUsers(List<UserMessage> users) {
+        this.users= users;
         invalidate();
     }
 

@@ -71,7 +71,7 @@ public class RegistActivity extends Activity implements RefreshIT {
     }
 
     @Override
-    public void success(int code) {
+    public void success(String code) {
         Timer t  = new Timer();
         TimerTask task = new TimerTask() {
             @Override
