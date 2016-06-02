@@ -35,293 +35,382 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.healthy.wp.HttpUtils.SingleAsyncHttp;
+import com.healthy.wp.MyApplycation;
 import com.healthy.wp.R;
+import com.healthy.wp.SmallCircle.IT.ITRefreshUI;
+import com.healthy.wp.SmallCircle.model.talkItem;
 import com.healthy.wp.gallery.king.photo.util.Bimp;
 import com.healthy.wp.gallery.king.photo.util.FileUtils;
 import com.healthy.wp.gallery.king.photo.util.ImageItem;
 import com.healthy.wp.gallery.king.photo.util.PublicWay;
 import com.healthy.wp.gallery.king.photo.util.Res;
 
+import java.io.FileNotFoundException;
+import java.util.List;
+
 
 /**
  * 首页面activity
- *@author wan_g_000
+ *
+ * @author wan_g_000
  * @version 2016年5月22日 15:30
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ITRefreshUI {
 
-	private GridView noScrollgridview;
-	private GridAdapter adapter;
-	private View parentView;
-	private PopupWindow pop = null;
-	Button send;
-	EditText text;
-	private LinearLayout ll_popup;
-	public static Bitmap bimap ;
-	ImageButton back;
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    private GridView noScrollgridview;
+    private GridAdapter adapter;
+    private View parentView;
+    private PopupWindow pop = null;
+    TextView send;
+    EditText text;
+    private LinearLayout ll_popup;
+    public static Bitmap bimap;
+    ImageButton back;
+    private GoogleApiClient client;
 
-		Res.init(this);
-		bimap = BitmapFactory.decodeResource(
-				getResources(),
-				R.drawable.icon_addpic_unfocused);
-		PublicWay.activityList.add(this);
-		parentView = getLayoutInflater().inflate(R.layout.activity_selectimg, null);
-		setContentView(parentView);
-		back = (ImageButton)parentView.findViewById(R.id.camera_back);
-		text = (EditText)parentView.findViewById(R.id.say);
-		Init();
-	}
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-	public void Init() {
-		
-		pop = new PopupWindow(MainActivity.this);
-		
-		View view = getLayoutInflater().inflate(R.layout.item_popupwindows, null);
+        Res.init(this);
+        bimap = BitmapFactory.decodeResource(
+                getResources(),
+                R.drawable.icon_addpic_unfocused);
+        PublicWay.activityList.add(this);
+        parentView = getLayoutInflater().inflate(R.layout.activity_selectimg, null);
+        setContentView(parentView);
+        back = (ImageButton) parentView.findViewById(R.id.camera_back);
+        text = (EditText) parentView.findViewById(R.id.say);
+        send = (TextView) parentView.findViewById(R.id.activity_selectimg_send);
+        Init();
+    }
+    MyApplycation myApplycation;
 
-		ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
+    public void Init() {
+        myApplycation = (MyApplycation) getApplication();
+        pop = new PopupWindow(MainActivity.this);
 
-		pop.setWidth(LayoutParams.MATCH_PARENT);
-		pop.setHeight(LayoutParams.WRAP_CONTENT);
-		pop.setBackgroundDrawable(new BitmapDrawable());
-		pop.setFocusable(true);
-		pop.setOutsideTouchable(true);
-		pop.setContentView(view);
-		
-		RelativeLayout parent = (RelativeLayout) view.findViewById(R.id.parent);
-		Button bt1 = (Button) view
-				.findViewById(R.id.item_popupwindows_camera);
-		Button bt2 = (Button) view
-				.findViewById(R.id.item_popupwindows_Photo);
-		Button bt3 = (Button) view
-				.findViewById(R.id.item_popupwindows_cancel);
-		back.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		parent.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				pop.dismiss();
-				ll_popup.clearAnimation();
-			}
-		});
-		bt1.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				photo();
-				pop.dismiss();
-				ll_popup.clearAnimation();
-			}
-		});
-		bt2.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this,
-						AlbumActivity.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
-				pop.dismiss();
-				ll_popup.clearAnimation();
-			}
-		});
-		bt3.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				pop.dismiss();
-				ll_popup.clearAnimation();
-			}
-		});
-		
-		noScrollgridview = (GridView) findViewById(R.id.noScrollgridview);	
-		noScrollgridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
-		adapter = new GridAdapter(this);
-		adapter.update();
-		noScrollgridview.setAdapter(adapter);
-		noScrollgridview.setOnItemClickListener(new OnItemClickListener() {
+        View view = getLayoutInflater().inflate(R.layout.item_popupwindows, null);
 
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				if (arg2 == Bimp.tempSelectBitmap.size()) {
-					Log.i("ddddddd", "----------");
-					if(arg2!=0) {
-						text.setText(Bimp.tempSelectBitmap.get(arg2 - 1).getImagePath());
-					}
-					ll_popup.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.activity_translate_in));
-					pop.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
-				} else {
-					Intent intent = new Intent(MainActivity.this,
-							GalleryActivity.class);
-					intent.putExtra("position", "1");
-					intent.putExtra("ID", arg2);
-					startActivity(intent);
-				}
-			}
-		});
+        ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
 
-	}
+        pop.setWidth(LayoutParams.MATCH_PARENT);
+        pop.setHeight(LayoutParams.WRAP_CONTENT);
+        pop.setBackgroundDrawable(new BitmapDrawable());
+        pop.setFocusable(true);
+        pop.setOutsideTouchable(true);
+        pop.setContentView(view);
 
-	@SuppressLint("HandlerLeak")
-	public class GridAdapter extends BaseAdapter {
-		private LayoutInflater inflater;
-		private int selectedPosition = -1;
-		private boolean shape;
+        RelativeLayout parent = (RelativeLayout) view.findViewById(R.id.parent);
+        Button bt1 = (Button) view
+                .findViewById(R.id.item_popupwindows_camera);
+        Button bt2 = (Button) view
+                .findViewById(R.id.item_popupwindows_Photo);
+        Button bt3 = (Button) view
+                .findViewById(R.id.item_popupwindows_cancel);
+        back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bimp.tempSelectBitmap.clear();
+                finishActivity();
+            }
+        });
+        parent.setOnClickListener(new OnClickListener() {
 
-		public boolean isShape() {
-			return shape;
-		}
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                pop.dismiss();
+                ll_popup.clearAnimation();
+            }
+        });
+        bt1.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                photo();
+                pop.dismiss();
+                ll_popup.clearAnimation();
+            }
+        });
+        bt2.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,
+                        AlbumActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
+                pop.dismiss();
+                ll_popup.clearAnimation();
+            }
+        });
+        bt3.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                pop.dismiss();
+                ll_popup.clearAnimation();
+            }
+        });
+        final ITRefreshUI re = this;
+        send.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (text.getText().toString().length() == 0) {
+                        Toast.makeText(getApplication(), "写点什么吧", Toast.LENGTH_LONG).show();
+                    } else if (Bimp.tempSelectBitmap.size() == 0) {
+                        Toast.makeText(getApplication(), "请选择一张你喜欢的图片吧！", Toast.LENGTH_LONG).show();
+                    } else {
 
-		public void setShape(boolean shape) {
-			this.shape = shape;
-		}
+                        SingleAsyncHttp.Mutilpost(myApplycation.getId(), text.getText().toString(), re);
 
-		public GridAdapter(Context context) {
-			inflater = LayoutInflater.from(context);
-		}
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        noScrollgridview = (GridView) findViewById(R.id.noScrollgridview);
+        noScrollgridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        adapter = new GridAdapter(this);
+        adapter.update();
+        noScrollgridview.setAdapter(adapter);
+        noScrollgridview.setOnItemClickListener(new OnItemClickListener() {
 
-		public void update() {
-			loading();
-		}
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                if (arg2 == Bimp.tempSelectBitmap.size()) {
+                    ll_popup.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.activity_translate_in));
+                    pop.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
+                } else {
+                    Intent intent = new Intent(MainActivity.this,
+                            GalleryActivity.class);
+                    intent.putExtra("position", "1");
+                    intent.putExtra("ID", arg2);
+                    startActivity(intent);
+                }
+            }
+        });
 
-		public int getCount() {
-			if(Bimp.tempSelectBitmap.size() == 9){
-				return 9;
-			}
-			return (Bimp.tempSelectBitmap.size() + 1);
-		}
+    }
 
-		public Object getItem(int arg0) {
-			return null;
-		}
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-		public long getItemId(int arg0) {
-			return 0;
-		}
+    }
 
-		public void setSelectedPosition(int position) {
-			selectedPosition = position;
-		}
 
-		public int getSelectedPosition() {
-			return selectedPosition;
-		}
+    @Override
+    public void RefreshUi(List<talkItem> talks) {
 
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder = null;
-			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.item_published_grida,
-						parent, false);
-				holder = new ViewHolder();
-				holder.image = (ImageView) convertView
-						.findViewById(R.id.item_grida_image);
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
+    }
 
-			if (position ==Bimp.tempSelectBitmap.size()) {
-				holder.image.setImageBitmap(BitmapFactory.decodeResource(
-						getResources(), R.drawable.icon_addpic_unfocused));
-				if (position == 9) {
-					holder.image.setVisibility(View.GONE);
-				}
-			} else {
-				holder.image.setImageBitmap(Bimp.tempSelectBitmap.get(position).getBitmap());
-			}
+    @Override
+    public void upLoadsuccess() {
+        Bimp.tempSelectBitmap.clear();
+        Toast.makeText(getApplication(), "上传成功", Toast.LENGTH_LONG).show();
+        finishActivity();
+    }
 
-			return convertView;
-		}
+    @Override
+    public void uploadfail() {
+        Toast.makeText(getApplication(), "上传失败", Toast.LENGTH_LONG).show();
+    }
 
-		public class ViewHolder {
-			public ImageView image;
-		}
+    @Override
+    public void finishActivity() {
+        Bimp.tempSelectBitmap.clear();
+        for (int i = 0; i < PublicWay.activityList.size(); i++) {
+            if (null != PublicWay.activityList.get(i)) {
+                PublicWay.activityList.get(i).finish();
+            }
+        }
+        ;
+        finish();
 
-		Handler handler = new Handler() {
-			public void handleMessage(Message msg) {
-				switch (msg.what) {
-				case 1:
-					adapter.notifyDataSetChanged();
-					break;
-				}
-				super.handleMessage(msg);
-			}
-		};
+    }
 
-		public void loading() {
-			new Thread(new Runnable() {
-				public void run() {
-					while (true) {
-						if (Bimp.max == Bimp.tempSelectBitmap.size()) {
-							Message message = new Message();
-							message.what = 1;
-							handler.sendMessage(message);
-							break;
-						} else {
-							Bimp.max += 1;
-							Message message = new Message();
-							message.what = 1;
-							handler.sendMessage(message);
-						}
-					}
-				}
-			}).start();
-		}
-	}
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
-	public String getString(String s) {
-		String path = null;
-		if (s == null)
-			return "";
-		for (int i = s.length() - 1; i > 0; i++) {
-			s.charAt(i);
-		}
-		return path;
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
-	protected void onRestart() {
-		adapter.update();
-		super.onRestart();
-	}
+    @SuppressLint("HandlerLeak")
+    public class GridAdapter extends BaseAdapter {
+        private LayoutInflater inflater;
+        private int selectedPosition = -1;
+        private boolean shape;
 
-	private static final int TAKE_PICTURE = 0x000001;
+        public boolean isShape() {
+            return shape;
+        }
 
-	public void photo() {
-		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		startActivityForResult(openCameraIntent, TAKE_PICTURE);
-	}
+        public void setShape(boolean shape) {
+            this.shape = shape;
+        }
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		case TAKE_PICTURE:
-			if (Bimp.tempSelectBitmap.size() < 9 && resultCode == RESULT_OK) {
-				
-				String fileName = String.valueOf(System.currentTimeMillis());
-				Bitmap bm = (Bitmap) data.getExtras().get("data");
-				FileUtils.saveBitmap(bm, fileName);
-				
-				ImageItem takePhoto = new ImageItem();
-				takePhoto.setBitmap(bm);
-				Bimp.tempSelectBitmap.add(takePhoto);
-			}
-			break;
-		}
-	}
-	
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			for(int i=0;i<PublicWay.activityList.size();i++) {
-				if (null != PublicWay.activityList.get(i)) {
-					PublicWay.activityList.get(i).finish();
-				}
-			};
-			finish();
-		}
-		return true;
-	}
+        public GridAdapter(Context context) {
+            inflater = LayoutInflater.from(context);
+        }
 
+        public void update() {
+            loading();
+        }
+
+        public int getCount() {
+            if (Bimp.tempSelectBitmap.size() == 9) {
+                return 9;
+            }
+            return (Bimp.tempSelectBitmap.size() + 1);
+        }
+
+        public Object getItem(int arg0) {
+            return null;
+        }
+
+        public long getItemId(int arg0) {
+            return 0;
+        }
+
+        public void setSelectedPosition(int position) {
+            selectedPosition = position;
+        }
+
+        public int getSelectedPosition() {
+            return selectedPosition;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.item_published_grida,
+                        parent, false);
+                holder = new ViewHolder();
+                holder.image = (ImageView) convertView
+                        .findViewById(R.id.item_grida_image);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            if (position == Bimp.tempSelectBitmap.size()) {
+                holder.image.setImageBitmap(BitmapFactory.decodeResource(
+                        getResources(), R.drawable.icon_addpic_unfocused));
+                if (position == 9) {
+                    holder.image.setVisibility(View.GONE);
+                }
+            } else {
+                holder.image.setImageBitmap(Bimp.tempSelectBitmap.get(position).getBitmap());
+            }
+
+            return convertView;
+        }
+
+        public class ViewHolder {
+            public ImageView image;
+        }
+
+        Handler handler = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 1:
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
+
+        public void loading() {
+            new Thread(new Runnable() {
+                public void run() {
+                    while (true) {
+                        if (Bimp.max == Bimp.tempSelectBitmap.size()) {
+                            Message message = new Message();
+                            message.what = 1;
+                            handler.sendMessage(message);
+                            break;
+                        } else {
+                            Bimp.max += 1;
+                            Message message = new Message();
+                            message.what = 1;
+                            handler.sendMessage(message);
+                        }
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public String getString(String s) {
+        String path = null;
+        if (s == null)
+            return "";
+        for (int i = s.length() - 1; i > 0; i++) {
+            s.charAt(i);
+        }
+        return path;
+    }
+
+    protected void onRestart() {
+        adapter.update();
+        super.onRestart();
+    }
+
+    private static final int TAKE_PICTURE = 0x000001;
+
+    public void photo() {
+        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(openCameraIntent, TAKE_PICTURE);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TAKE_PICTURE:
+                if (Bimp.tempSelectBitmap.size() < 9 && resultCode == RESULT_OK) {
+
+                    String fileName = String.valueOf(System.currentTimeMillis());
+                    Bitmap bm = (Bitmap) data.getExtras().get("data");
+                    FileUtils.saveBitmap(bm, fileName);
+
+                    ImageItem takePhoto = new ImageItem();
+                    takePhoto.setBitmap(bm);
+                    Bimp.tempSelectBitmap.add(takePhoto);
+                }
+                break;
+        }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            for (int i = 0; i < PublicWay.activityList.size(); i++) {
+                if (null != PublicWay.activityList.get(i)) {
+                    PublicWay.activityList.get(i).finish();
+                }
+            }
+            ;
+            finish();
+        }
+        return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("Tag", "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Tag", "onResume");
+    }
 }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -45,14 +46,15 @@
                 android:layout_marginLeft="10dp"
                 android:text="@string/sex_string" />
 
-            <TextView
+            <EditText
                 android:id="@+id/sexchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:layout_gravity="center"
-
+                android:background="@null"
                 android:layout_marginLeft="10dp"
-                android:text="女"
+                android:hint="女"
                 android:textColor="@color/strick" />
         </LinearLayout>
 
@@ -74,6 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:singleLine="true"
+
                 android:layout_marginLeft="10dp"
                 android:hint="@string/sbname"
                 android:background="@null"
@@ -98,6 +102,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:singleLine="true"
+
                 android:background="@null"
                 android:layout_marginLeft="10dp"
                 android:hint="1990-01-01"
@@ -121,6 +127,8 @@
                 android:id="@+id/choose_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:hint="@string/ling"
@@ -151,6 +159,8 @@
 
             <EditText
                 android:id="@+id/choose_weight"
+                android:singleLine="true"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -188,6 +198,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:hint="@string/ling"
+                android:editable="false"
                 android:background="@null"
                 android:textColor="@color/strick" />
         </LinearLayout>
@@ -210,6 +221,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:editable="false"
+
                 android:layout_marginLeft="10dp"
                 android:hint="0.0"
                 android:background="@null"
@@ -240,6 +253,8 @@
             <EditText
                 android:id="@+id/choose_fat_lv"
                 android:layout_width="wrap_content"
+                android:editable="false"
+
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
@@ -264,6 +279,8 @@
             <EditText
                 android:id="@+id/choose_lean"
                 android:layout_width="wrap_content"
+                android:editable="false"
+
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@null"
@@ -299,6 +316,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@null"
+                android:editable="false"
+
                 android:layout_marginLeft="10dp"
                 android:hint="0.0"
                 android:textColor="@color/strick" />

@@ -10,6 +10,15 @@ public class historyData {
     String userName;
     String userPassword;
     String user_id;
+String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getUserName() {
         return userName;
@@ -36,9 +45,9 @@ public class historyData {
         this.sex = sex;
     }
 
-    public historyData(String id,String username, String height, String weight, String sex, String date) {
+    public historyData(String id,String nickname, String height, String weight, String sex, String date) {
         this.height = height;
-        this.userName=username;
+        this.nickname=nickname;
         this.user_id=id;
         this.weight = weight;
         this.sex=sex;

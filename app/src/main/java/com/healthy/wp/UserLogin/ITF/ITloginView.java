@@ -8,5 +8,6 @@ import com.healthy.wp.UserLogin.model.UserMessage;
 public interface ITloginView {
     void StartIntentActivity(UserMessage s);
     void dimissDialog();
+    void update(UserMessage user);
     void showDialog();
 }

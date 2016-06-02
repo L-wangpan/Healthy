@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 import com.healthy.wp.Messure.View.MessureFragment;
+import com.healthy.wp.MyApplycation;
 import com.healthy.wp.Personal.View.MyFragment;
 import com.healthy.wp.Personal.View.SetUpActivity;
 import com.healthy.wp.R;
@@ -34,6 +35,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     RadioButton bhome, bassess, bsmall, bmy;
     List<Fragment> fragments = new ArrayList<Fragment>();
     View v;
+    MyApplycation myApplycation;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -63,7 +65,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fragments.add(new SmallCircle());
         fragments.add(new MyFragment());
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setOnPageChangeListener(new PageChangeListener());
         right = (ImageButton) getActionBar().getCustomView().findViewById(R.id.right);
     }

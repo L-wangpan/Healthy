@@ -6,6 +6,7 @@ import com.healthy.wp.Personal.IT.ITmodel;
 import com.healthy.wp.Personal.IT.RefreshIT;
 import com.healthy.wp.Personal.model.PersonalModel;
 import com.healthy.wp.Personal.model.historyData;
+import com.healthy.wp.UserLogin.model.UserMessage;
 
 /**
  * Created by wan_g_000 on 2016/4/4.
@@ -20,12 +21,16 @@ public class PersonPresenter {
                 @Override
                 public void success(String path) {
                     callback.success(path);
-
+                }
+                @Override
+                public void fail(int code)
+                {
+                    callback.Error(code);
                 }
 
                 @Override
-                public void fail(int code) {
-                    callback.Error(code);
+                public void userUpdate(UserMessage user) {
+                    callback.RefreshIdentify(user);
                 }
             },context,person);
     }

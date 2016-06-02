@@ -102,8 +102,7 @@ public class AlbumActivity extends Activity {
 	private class AlbumSendListener implements OnClickListener {
 		public void onClick(View v) {
 			overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
-			intent.setClass(mContext, MainActivity.class);
-			startActivity(intent);
+			dataList.clear();
 			finish();
 		}
 
@@ -120,9 +119,8 @@ public class AlbumActivity extends Activity {
 	// 取消按钮的监听
 	private class CancelListener implements OnClickListener {
 		public void onClick(View v) {
-			Bimp.tempSelectBitmap.clear();
-			intent.setClass(mContext, MainActivity.class);
-			startActivity(intent);
+
+			finish();
 		}
 	}
 
@@ -234,5 +232,11 @@ public class AlbumActivity extends Activity {
 	protected void onRestart() {
 		isShowOkBt();
 		super.onRestart();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(broadcastReceiver);
 	}
 }

@@ -12,7 +12,7 @@ public class MyView extends View {
     private Paint p;
     Context context;
     int nScreenWidth, nScreenHeight;
-    UserMessage user = new UserMessage();
+    UserMessage user;
 
     public MyView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -69,7 +69,7 @@ public class MyView extends View {
         p.setColor(getResources().getColor(R.color.white));
         p.setTextSize(DipTopX.dipTopx(context, 16));
         p.setStrokeWidth(1);
-        canvas.drawText(user.getHeight(), x1 - dx - DipTopX.dipTopx(context, 16), y1 + dy, p);
+        canvas.drawText((int)((Double.parseDouble(user.getHeight()))*100)+"", x1 - dx - DipTopX.dipTopx(context, 16), y1 + dy, p);
 
         p.setColor(getResources().getColor(R.color.white));
         p.setTextSize(DipTopX.dipTopx(context, 16));
@@ -91,7 +91,7 @@ public class MyView extends View {
         p.setColor(getResources().getColor(R.color.white));
         p.setTextSize(DipTopX.dipTopx(context, 16));
         p.setStrokeWidth(1);
-        canvas.drawText(user.getFat(), x1 + dx - DipTopX.dipTopx(context, 24), y1 + dy, p);
+        canvas.drawText(user.getFat().substring(0,3), x1 + dx - DipTopX.dipTopx(context, 16), y1 + dy, p);
 
         p.setColor(getResources().getColor(R.color.white));
         p.setTextSize(DipTopX.dipTopx(context, 16));
@@ -129,7 +129,7 @@ public class MyView extends View {
 
         p.setColor(getResources().getColor(R.color.white));
         p.setTextSize(DipTopX.dipTopx(context, 16));
-        canvas.drawText(user.getWeight(), x1 - DipTopX.dipTopx(context, 8), y1, p);
+        canvas.drawText(user.getWeight(), x1 - DipTopX.dipTopx(context, 16), y1, p);
 
         p.setColor(getResources().getColor(R.color.white));
         p.setTextSize(DipTopX.dipTopx(context, 16));
@@ -147,5 +147,11 @@ public class MyView extends View {
         this.user = user;
         invalidate();
     }
+
+
+    public void drawNew(){
+        invalidate();
+    }
+
 }
 

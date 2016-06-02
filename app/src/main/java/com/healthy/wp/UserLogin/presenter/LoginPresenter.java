@@ -19,18 +19,21 @@ public class LoginPresenter {
     LoginModel loginModel;
     RefreshIT refreshIT;
     Handler handler = new Handler();
+
     public LoginPresenter(UserMessage user, Context context, ITloginView callBack) {
         this.user = user;
         this.context = context;
         this.callBack = callBack;
         loginModel = new LoginModel(context);
     }
+
     public LoginPresenter(UserMessage user, Context context, RefreshIT mrefreshIT) {
         this.user = user;
         this.context = context;
         this.refreshIT = mrefreshIT;
         loginModel = new LoginModel(context);
     }
+
     public void login() {
 //        Toast.makeText(context,"asasa",Toast.LENGTH_LONG).show();
         callBack.showDialog();
@@ -42,10 +45,25 @@ public class LoginPresenter {
                 final UserMessage userMessage = new UserMessage();
                 userMessage.setCode(s.getCode());
                 userMessage.setId(s.getId());
+                userMessage.setHeight(s.getHeight());
+                userMessage.setWeight(s.getWeight());
+                userMessage.setDate(s.getDate());
+                userMessage.setNickname(s.getNickname());
                 userMessage.setUsername(s.getUsername());
+                userMessage.setFatFreeMass(s.getFatFreeMass());
+                userMessage.setFat(s.getFat());
+                userMessage.setBoneMass(s.getBoneMass());
+                userMessage.setMassIndex(s.getMassIndex());
+                userMessage.setFatRate(s.getFatRate());
+                userMessage.setMoisture(s.getMoisture());
+                userMessage.setNickname(s.getNickname());
+                userMessage.setHeadPortrait(s.getHeadPortrait());
+                userMessage.setSex(s.getSex());
+                userMessage.setAge(s.getAge());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        callBack.update(userMessage);
                         callBack.StartIntentActivity(userMessage);
                     }
                 });
@@ -57,11 +75,12 @@ public class LoginPresenter {
             }
         });
     }
-    public void  regist(){
+
+    public void regist() {
         loginModel.regist(user, new LoginCallBack() {
             @Override
             public void Success(UserMessage s) {
-                    refreshIT.success(s.getCode());
+                refreshIT.success(s.getCode());
             }
 
             @Override

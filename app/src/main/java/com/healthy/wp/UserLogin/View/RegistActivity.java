@@ -89,6 +89,11 @@ public class RegistActivity extends Activity implements RefreshIT {
     }
 
     @Override
+    public void RefreshIdentify(UserMessage user) {
+
+    }
+
+    @Override
     public void RefreshMyId(List<historyData> datas) {
 
     }

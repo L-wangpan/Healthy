@@ -38,9 +38,9 @@ public class LandActivity extends Activity implements ITloginView {
     private void initView() {
         userinput = (EditText) findViewById(R.id.input_id);
         passinput = (EditText) findViewById(R.id.input_pass);
-        myApplycation = (MyApplycation) getApplication();
         userinput.setText("admin");
         passinput.setText("admin");
+        myApplycation = (MyApplycation) getApplication();
         userMessage = new UserMessage();
         pres = LayoutInflater.from(getApplication()).inflate(R.layout.gressbar, null);
         circleProgress = (CircleProgress) pres.findViewById(R.id.progress);
@@ -84,6 +84,7 @@ public class LandActivity extends Activity implements ITloginView {
             Bundle bundle = new Bundle();
             bundle.putSerializable("user", s);
             intent.putExtras(bundle);
+
             intent.setClass(getApplication(), MainActivity.class);
             startActivity(intent);
             finish();
@@ -96,6 +97,11 @@ public class LandActivity extends Activity implements ITloginView {
     public void dimissDialog() {
         progressDialog.dismiss();
 
+    }
+
+    @Override
+    public void update(UserMessage user) {
+        myApplycation.setUser(user);
     }
 
 }

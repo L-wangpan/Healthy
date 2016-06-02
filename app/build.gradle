@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion '23.0.2'
+    compileSdkVersion 22
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         applicationId "com.healthy.healthy"
         multiDexEnabled = true
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 17
         versionCode 1
         versionName "1.0"
@@ -31,4 +31,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'pl.tajchert:waitingdots:0.2.0'
 }

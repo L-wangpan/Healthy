@@ -6,6 +6,7 @@ import com.healthy.wp.SmallCircle.IT.GetFreshData;
 import com.healthy.wp.SmallCircle.IT.ITRefreshUI;
 import com.healthy.wp.SmallCircle.model.SmallCicleModel;
 import com.healthy.wp.SmallCircle.model.Talk;
+import com.healthy.wp.SmallCircle.model.talkItem;
 
 import java.util.List;
 
@@ -18,10 +19,12 @@ public class CiclePresentor {
     GetFreshData callback;
     SmallCicleModel smallCicleModel;
     Talk talk;
-
-    public CiclePresentor(Context context, ITRefreshUI smallCircle) {
+    String id;
+    public CiclePresentor(Context context, ITRefreshUI smallCircle,String user_id) {
         this.context = context;
         this.refresh = smallCircle;
+        this.id = user_id;
+        smallCicleModel = new SmallCicleModel();
     }
 
     public void getfresh() {
@@ -29,7 +32,7 @@ public class CiclePresentor {
         smallCicleModel.getData(
                 callback = new GetFreshData() {
                     @Override
-                    public void success(List<Talk> talks) {
+                    public void success(List<talkItem> talks) {
                         refresh.RefreshUi(talks);
                     }
 
@@ -37,7 +40,7 @@ public class CiclePresentor {
                     public void fail() {
 
                     }
-                }, talk,context,"");
+                },context,id);
 
     }
 

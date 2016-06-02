@@ -1,11 +1,10 @@
 package com.healthy.wp.Messure.View;
 
 import android.annotation.TargetApi;
-
-import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,31 +14,48 @@ import android.widget.Toast;
 import com.healthy.wp.Messure.IT.ITUI;
 import com.healthy.wp.Messure.model.UserDetails;
 import com.healthy.wp.Messure.presenter.MessurePresenter;
-import com.healthy.wp.MyView.ShowDataActivity;
+import com.healthy.wp.MyApplycation;
 import com.healthy.wp.R;
 import com.healthy.wp.UserLogin.model.UserMessage;
+
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MessureFragment extends Fragment implements ITUI{
 
 	View view = null;
-	MyView myView;
+	public static MyView myView;
 	Button bt;
+	MyApplycation myApplycation;
+	public static UserMessage userMessage;
 	MessurePresenter messurePresenter;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.messure, null);
+		myApplycation = (MyApplycation)getActivity().getApplication();
 		initView();
+
 		return view;
 	}
+	Button fatRate,moisture,fatFreeMass,userage,massIndex;
 	private void initView(){
+		fatRate = (Button)view.findViewById(R.id.fat_bgg);
+		moisture = (Button)view.findViewById(R.id.water_bg);
+		fatFreeMass = (Button)view.findViewById(R.id.lean_fat_bg);
+		userage=(Button)view.findViewById(R.id.age_bg);
+		massIndex = (Button)view.findViewById(R.id.bmi_bg);
 		myView = new MyView(getActivity());
 		myView = (MyView)view.findViewById(R.id.myview);
-		UserMessage userMessage = new UserMessage();
-		userMessage.setFat("22.03");
-		userMessage.setHeight("175");
-		userMessage.setWeight("60");
+		userMessage = myApplycation.getUser();
+		Log.d("Tag","ppppppp"+userMessage);
 		myView.drawData(userMessage);
+		fatRate.setText(userMessage.getFatRate());
+		moisture.setText(userMessage.getMoisture());
+		fatFreeMass.setText(userMessage.getFatFreeMass());
+//		String []year = myApplycation.getUser().getDate().split("-");
+//		Date d = new Date();
+		userage.setText(userMessage.getAge());
+		massIndex.setText(userMessage.getMassIndex());
+
 	}
 
 	@Override
@@ -76,6 +92,5 @@ public class MessureFragment extends Fragment implements ITUI{
 		}
 	}
 	public void startAnotherActivity(){
-			startActivity(new Intent().setClass(getActivity(), ShowDataActivity.class));
 	}
 }

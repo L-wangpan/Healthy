@@ -33,6 +33,27 @@ public class FileUtils {
 		}
 	}
 
+	public static File getFileBitmap(Bitmap bm, String picName) {
+		File f=null;
+		try {
+			if (!isFileExist("")) {
+				File tempf = createSDDir("");
+			}
+			f = new File(SDPATH, picName + ".JPEG");
+			if (f.exists()) {
+				f.delete();
+			}
+			FileOutputStream out = new FileOutputStream(f);
+			bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
 	public static File createSDDir(String dirName) throws IOException {
 		File dir = new File(SDPATH + dirName);
 		if (Environment.getExternalStorageState().equals(

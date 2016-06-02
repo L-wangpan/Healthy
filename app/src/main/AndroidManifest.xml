@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.healthy.wp">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--the following two permissions are required if you want to take photo in selector-->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -41,9 +39,6 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MyView.ShowDataActivity"
-            android:label="@string/title_activity_show_data" />
-        <activity
             android:name=".Personal.View.SetUpActivity"
             android:label="@string/title_activity_set_up" />
         <activity
@@ -53,10 +48,10 @@
         <activity
             android:name=".gallery.king.photo.activity.AlbumActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="gallery.king.photo.activity.ImageFile"></activity>
-        <activity android:name="gallery.king.photo.activity.ShowAllPhoto"></activity>
+        <activity android:name=".gallery.king.photo.activity.ImageFile"></activity>
+        <activity android:name=".gallery.king.photo.activity.ShowAllPhoto"></activity>
         <activity android:name=".gallery.king.photo.util.BitmapCache"></activity>
-        <activity android:name="gallery.king.photo.activity.GalleryActivity"></activity>
+        <activity android:name=".gallery.king.photo.activity.GalleryActivity"></activity>
         <activity
             android:name=".gallery.king.photo.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>

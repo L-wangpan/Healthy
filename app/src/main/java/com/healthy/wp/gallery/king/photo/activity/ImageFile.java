@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -31,7 +32,9 @@ public class ImageFile extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(Res.getLayoutID("plugin_camera_image_file"));
+
 		PublicWay.activityList.add(this);
 		mContext = this;
 		bt_cancel = (Button) findViewById(Res.getWidgetID("cancel"));
@@ -47,9 +50,7 @@ public class ImageFile extends Activity {
 		public void onClick(View v) {
 			//清空选择的图片
 			Bimp.tempSelectBitmap.clear();
-			Intent intent = new Intent();
-			intent.setClass(mContext, MainActivity.class);
-			startActivity(intent);
+		finish();
 		}
 	}
 

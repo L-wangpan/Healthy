@@ -1,4 +1,4 @@
-package com.healthy.wp.gallery.king.photo.activity;
+    package com.healthy.wp.gallery.king.photo.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -61,6 +62,7 @@ public class GalleryActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(Res.getLayoutID("plugin_camera_gallery"));// 切屏到主界面
 		PublicWay.activityList.add(this);
 		mContext = this;
@@ -150,8 +152,8 @@ public class GalleryActivity extends Activity {
 	private class GallerySendListener implements OnClickListener {
 		public void onClick(View v) {
 			finish();
-			intent.setClass(mContext,MainActivity.class);
-			startActivity(intent);
+			/*intent.setClass(mContext,MainActivity.class);
+			startActivity(intent);*/
 		}
 
 	}

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -25,10 +27,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.healthy.wp.MyApplycation;
 import com.healthy.wp.R;
 import com.healthy.wp.SmallCircle.IT.ITRefreshUI;
-import com.healthy.wp.SmallCircle.model.Talk;
+import com.healthy.wp.SmallCircle.model.talkItem;
 import com.healthy.wp.SmallCircle.presenter.CiclePresentor;
+import com.healthy.wp.SmallCircle.presenter.gridAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,7 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
     View view = null;
     ExpandableListView mlistview;
     ImageView back;
+    expandlistviewadapter listviewadapter;
     SwipeRefreshLayout refresh;
     ScrollView sv;
     int height;
@@ -46,6 +51,22 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
     int width;
     List<String> strs = new ArrayList<String>();
     CiclePresentor ciclePresentor;
+    List<talkItem> talkItems = new ArrayList<talkItem>();
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0x123:
+                    listviewadapter.notifyDataSetChanged();
+                    setListViewHeightBasedOnChildren(mlistview);
+                    break;
+                case 0x234:
+                    listviewadapter.viewHold.adapter.notifyDataSetChanged();
+                    break;
+            }
+
+        }
+    };
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +76,8 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
         return view;
     }
 
+    MyApplycation myApplycation;
+
     private void InitView() {
         // TODO Auto-generated method stub
         WindowManager wm = (WindowManager) getActivity()
@@ -62,11 +85,12 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
         width = wm.getDefaultDisplay().getWidth();
         height = wm.getDefaultDisplay().getHeight();
         mlistview = (ExpandableListView) view.findViewById(R.id.my_cicel_list);
-        scroll = (ScrollView)view.findViewById(R.id.scrollView1);
-        refresh = (SwipeRefreshLayout)view.findViewById(R.id.refresh);
+        scroll = (ScrollView) view.findViewById(R.id.scrollView1);
+        refresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         back = (ImageView) view.findViewById(R.id.backme);
         sv = (ScrollView) view.findViewById(R.id.scrollView1);
-        ciclePresentor = new CiclePresentor(getActivity(), this);
+        myApplycation = (MyApplycation) getActivity().getApplication();
+        ciclePresentor = new CiclePresentor(getActivity(), this, myApplycation.getId());
         RelativeLayout main = (RelativeLayout) view.findViewById(R.id.main_linear);
 
         Bitmap bt1 = BitmapFactory.decodeResource(getResources(), R.drawable.smallbac);
@@ -84,53 +108,52 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
         setListView();
 
     }
-private void setListView(){
-    List<Talk> talks = new ArrayList<Talk>();
-    Talk tk1 = new Talk("小雷", getResources().getString(R.string.sbdetile));
-    tk1.addPerson(tk1.new SBtalk("小王", "你好！"));
-    talks.add(tk1);
-    Talk tk2 = new Talk(getResources().getString(R.string.sbname), getResources().getString(R.string.sbdetile));
-    tk2.addPerson(tk2.new SBtalk("小张", "你好！"));
-    talks.add(tk2);
-    mlistview.setAdapter(new expandlistviewadapter(talks));
-    for (int i = 0; i < talks.size(); i++)
-        mlistview.expandGroup(i);
-    mlistview.setGroupIndicator(null);
-    mlistview.setDividerHeight(4);
-    setListViewHeightBasedOnChildren(mlistview);
-    refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // 停止刷新
-                    refresh.setRefreshing(false);
-                }
-            }, 3000); // 3秒后发送消息，停止刷新
-        }
-    });
-    // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
-    refresh.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
-            android.R.color.holo_orange_light, android.R.color.holo_red_light);
-    refresh.setDistanceToTriggerSync(400);// 设置手指在屏幕下拉多少距离会触发下拉刷新
-    refresh.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
-    refresh.setSize(SwipeRefreshLayout.LARGE);
-    mlistview.setOnScrollListener(new AbsListView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(AbsListView absListView, int i) {
 
-        }
+    private void setListView() {
+        ciclePresentor.getfresh();
 
-        @Override
-        public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-            if (i == 0)
-                refresh.setEnabled(true);
-            else
-                refresh.setEnabled(false);
-        }
-    });
-}
+        listviewadapter = new expandlistviewadapter(talkItems);
+        mlistview.setAdapter(listviewadapter);
+        for (int i = 0; i < talkItems.size(); i++)
+            mlistview.expandGroup(i);
+        mlistview.setGroupIndicator(null);
+        mlistview.setDividerHeight(4);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ciclePresentor.getfresh();
+                handler.sendEmptyMessage(0x123);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 停止刷新
+                        refresh.setRefreshing(false);
+                    }
+                }, 3000); // 3秒后发送消息，停止刷新
+            }
+        });
+        // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
+        refresh.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        refresh.setDistanceToTriggerSync(400);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        refresh.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
+        refresh.setSize(SwipeRefreshLayout.LARGE);
+        mlistview.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                if (i == 0)
+                    refresh.setEnabled(true);
+                else
+                    refresh.setEnabled(false);
+
+            }
+
+        });
+    }
 
 
     public void setListViewHeightBasedOnChildren(ExpandableListView listView) {
@@ -156,13 +179,33 @@ private void setListView(){
         listView.setLayoutParams(params);
     }
 
-    public void RefreshUi(List<Talk> talks) {
+    public void RefreshUi(List<talkItem> talks) {
+        talkItems.clear();
+        for (int i = 0; i < talks.size(); i++) {
+            talkItems.add(talks.get(i));
+        }
+        talks.clear();
+        handler.sendEmptyMessage(0x123);
+    }
+
+    @Override
+    public void upLoadsuccess() {
+
+    }
+
+    @Override
+    public void uploadfail() {
+
+    }
+
+    @Override
+    public void finishActivity() {
 
     }
 
     class expandlistviewadapter extends BaseExpandableListAdapter {
         Context context;
-        List<Talk> talks;
+        List<talkItem> talks;
         ViewHold viewHold;
         ImageLoader.ImageListener listener;
 
@@ -171,14 +214,15 @@ private void setListView(){
             ImageView myic;
             TextView sbhead;
             TextView sbend;
+            gridAdapter adapter;
             TextView showdetile;
             ImageView mypictrues;
-            ImageView wordview;
+            GridView wordview;
             ImageButton zan;
             ImageView talk;
         }
 
-        public expandlistviewadapter(List<Talk> talk) {
+        public expandlistviewadapter(List<talkItem> talk) {
             ViewHold viewHold = new ViewHold();
             this.talks = talk;
         }
@@ -189,7 +233,7 @@ private void setListView(){
 
         @Override
         public int getChildrenCount(int i) {
-            return talks.get(i).getPersons().size();
+            return talks.get(i).getTalks().size();
         }
 
         @Override
@@ -199,7 +243,7 @@ private void setListView(){
 
         @Override
         public Object getChild(int i, int i1) {
-            return talks.get(i).getPersons().get(i1);
+            return talks.get(i).getTalks().get(i1);
         }
 
         @Override
@@ -226,14 +270,19 @@ private void setListView(){
                 viewHold.mypictrues = (ImageView) view.findViewById(R.id.mytuxiang);
                 viewHold.name = (TextView) view.findViewById(R.id.sbname);
                 viewHold.showdetile = (TextView) view.findViewById(R.id.worddetile);
-                viewHold.wordview = (ImageView) view.findViewById(R.id.wordpic);
+                viewHold.wordview = (GridView) view.findViewById(R.id.gidpic);
+                viewHold.adapter = new gridAdapter(getActivity());
+                viewHold.adapter.setUrls(talks.get(i).getUrls());
+                viewHold.wordview.setAdapter(viewHold.adapter);
                 view.setTag(viewHold);
             }
+            Log.d("Tag", i + "----" + talks.get(i).getUrls().toString());
+            viewHold.adapter.setUrls(talks.get(i).getUrls());
+            handler.sendEmptyMessage(0x234);
             listener = ImageLoader.getImageListener(viewHold.mypictrues, R.drawable.ic_launcher, R.drawable.ic_launcher);
             viewHold = (ViewHold) view.getTag();
             viewHold.name.setText(getResources().getString(R.string.sbname));
-//            SongleVolley.getInstance(context).getmImageLoader().get(talks.get(i).getMypicurl(), listener,200,150);
-            viewHold.showdetile.setText(getResources().getString(R.string.sbdetile));
+            viewHold.showdetile.setText(talks.get(i).getDynamicInformation());
 
             return view;
         }
@@ -248,8 +297,6 @@ private void setListView(){
                 view.setTag(viewHold);
             }
             viewHold = (ViewHold) view.getTag();
-            viewHold.sbhead.setText(talks.get(i).getPersons().get(i1).getSbname());
-            viewHold.sbend.setText(talks.get(i).getPersons().get(i1).getWords());
             return view;
         }
 

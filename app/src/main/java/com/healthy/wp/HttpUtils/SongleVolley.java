@@ -25,6 +25,7 @@ public class SongleVolley {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     private SongleVolley(Context context) {
         this.context = context;
+        getRequsetqueue();
         mImageLoader = new ImageLoader(mRequsetqueue, new ImageLoader.ImageCache() {
             private final LruCache<String,Bitmap> cache = new LruCache<String,Bitmap>(10);
             public Bitmap getBitmap(String s) {
