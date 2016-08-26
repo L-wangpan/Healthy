@@ -38,9 +38,8 @@ public class LandActivity extends Activity implements ITloginView {
     private void initView() {
         userinput = (EditText) findViewById(R.id.input_id);
         passinput = (EditText) findViewById(R.id.input_pass);
-        userinput.setText("admin");
-        passinput.setText("admin");
         myApplycation = (MyApplycation) getApplication();
+        progressDialog = new ProgressDialog(this);
         userMessage = new UserMessage();
         pres = LayoutInflater.from(getApplication()).inflate(R.layout.gressbar, null);
         circleProgress = (CircleProgress) pres.findViewById(R.id.progress);
@@ -51,9 +50,17 @@ public class LandActivity extends Activity implements ITloginView {
             case R.id.land:
                 userMessage.setUsername(userinput.getText().toString());
                 userMessage.setPassword(passinput.getText().toString());
+                if(userinput.getText().toString().length()==0)
+                    Toast.makeText(getApplicationContext(),"请输入用户名",Toast.LENGTH_LONG).show();
+                else if(passinput.getText().toString().length()==0){
+                    Toast.makeText(getApplicationContext(),"请输入密码",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    loginPresenter = new LoginPresenter(userMessage, this, this);
+                    loginPresenter.login();
+                }
                 System.out.println(result + "asasa");
-                loginPresenter = new LoginPresenter(userMessage, this, this);
-                loginPresenter.login();
+
                 break;
             case R.id.regist_user:
                 startActivity(new Intent(LandActivity.this, RegistActivity.class));
@@ -65,7 +72,7 @@ public class LandActivity extends Activity implements ITloginView {
 
     @Override
     public void showDialog() {
-        progressDialog = new ProgressDialog(this);
+
         progressDialog.show();
         progressDialog.setContentView(pres);
         circleProgress.startAnim();

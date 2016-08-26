@@ -1,6 +1,7 @@
 package com.healthy.wp.UserMenu.View;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,9 +11,12 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
+import com.healthy.wp.HttpUtils.SystemStatusManager;
 import com.healthy.wp.Messure.View.MessureFragment;
 import com.healthy.wp.MyApplycation;
 import com.healthy.wp.Personal.View.MyFragment;
@@ -38,13 +42,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     MyApplycation myApplycation;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//        setTranslucentStatus();
         setContentView(R.layout.activity_main);
-        if (getActionBar() == null) {
-            Log.d("Tag", "null");
-        } else {
-            Log.d("Tag", "ok");
-        }
         LayoutInflater inflater = LayoutInflater.from(getApplication());
         v = inflater.inflate(R.layout.action, null);
         MyActionbar.setActionBar(getActionBar(), v, "首页",
@@ -75,7 +74,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onStop();
 
     }
-
+    private void setTranslucentStatus()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            Window win = getWindow();
+            WindowManager.LayoutParams winParams = win.getAttributes();
+            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+            winParams.flags |= bits;
+            win.setAttributes(winParams);
+        }
+        SystemStatusManager tintManager = new SystemStatusManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(0);//状态栏无背景
+    }
     class MyPagerAdapter extends FragmentStatePagerAdapter {
 
         public MyPagerAdapter(FragmentManager fm) {
@@ -159,7 +171,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     class PageChangeListener implements ViewPager.OnPageChangeListener {
 
         public void onPageScrollStateChanged(int arg0) {
-            Log.d("Tag", arg0 + "-------");
 
         }
 

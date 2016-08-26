@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.healthy.wp.MyApplycation;
+import com.healthy.wp.MyView.ImageThumbnail;
 import com.healthy.wp.R;
 import com.healthy.wp.SmallCircle.IT.ITRefreshUI;
 import com.healthy.wp.SmallCircle.model.talkItem;
@@ -96,7 +97,8 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
         Bitmap bt1 = BitmapFactory.decodeResource(getResources(), R.drawable.smallbac);
         Log.i("imageview", "width: " + bt1.getWidth());
         Log.i("imageview", "height: " + bt1.getHeight());
-        Bitmap bt2 = BitmapFactory.decodeResource(getResources(), R.drawable.my_pic);
+        Bitmap bt2 = BitmapFactory.decodeResource(getResources(), R.drawable.myicon);
+//        ImageThumbnail.PicZoom(bt2,200,200);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         ImageView ic = new ImageView(getActivity());
@@ -217,7 +219,7 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
             gridAdapter adapter;
             TextView showdetile;
             ImageView mypictrues;
-            GridView wordview;
+            MyGridView wordview;
             ImageButton zan;
             ImageView talk;
         }
@@ -270,13 +272,12 @@ public class SmallCircle extends Fragment implements ITRefreshUI {
                 viewHold.mypictrues = (ImageView) view.findViewById(R.id.mytuxiang);
                 viewHold.name = (TextView) view.findViewById(R.id.sbname);
                 viewHold.showdetile = (TextView) view.findViewById(R.id.worddetile);
-                viewHold.wordview = (GridView) view.findViewById(R.id.gidpic);
+                viewHold.wordview = (MyGridView) view.findViewById(R.id.gidpic);
                 viewHold.adapter = new gridAdapter(getActivity());
                 viewHold.adapter.setUrls(talks.get(i).getUrls());
                 viewHold.wordview.setAdapter(viewHold.adapter);
                 view.setTag(viewHold);
             }
-            Log.d("Tag", i + "----" + talks.get(i).getUrls().toString());
             viewHold.adapter.setUrls(talks.get(i).getUrls());
             handler.sendEmptyMessage(0x234);
             listener = ImageLoader.getImageListener(viewHold.mypictrues, R.drawable.ic_launcher, R.drawable.ic_launcher);

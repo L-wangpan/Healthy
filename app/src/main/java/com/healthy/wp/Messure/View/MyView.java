@@ -91,7 +91,7 @@ public class MyView extends View {
         p.setColor(getResources().getColor(R.color.white));
         p.setTextSize(DipTopX.dipTopx(context, 16));
         p.setStrokeWidth(1);
-        canvas.drawText(user.getFat().substring(0,3), x1 + dx - DipTopX.dipTopx(context, 16), y1 + dy, p);
+        canvas.drawText(user.getFat().substring(0,4), x1 + dx - DipTopX.dipTopx(context, 16), y1 + dy, p);
 
         p.setColor(getResources().getColor(R.color.white));
         p.setTextSize(DipTopX.dipTopx(context, 16));

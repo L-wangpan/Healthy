@@ -83,7 +83,6 @@ public class CircleProgress extends View {
     protected void onDraw(Canvas canvas) {
         canvas.save();
         canvas.translate(mCenter.x, mCenter.y);
-
         float factor = getFactor();
         canvas.rotate(36 * factor);
         float x, y;

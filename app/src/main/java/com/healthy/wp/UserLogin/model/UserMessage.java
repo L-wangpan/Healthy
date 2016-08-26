@@ -9,20 +9,20 @@ public class UserMessage implements Serializable{
     private String username;
     private String password;
     private String code;
-    String weight="0.0";
+    String weight="0.000";
     String sex;
     String id;
-    String fat="0.0";
-    String height="0.0";
+    String fat="0.000";
+    String height="0.000";
     String Nickname;
     String date;
-    String massIndex="0.0";
+    String massIndex="0.0000";
     String age="0";
-    String fatRate="0.0";
-    String fatFreeMass="0.0";
-    String boneMass="0.0";
+    String fatRate="0.0000";
+    String fatFreeMass="0.0000";
+    String boneMass="0.0000";
     String headPortrait;
-    String moisture="0.0";
+    String moisture="0.0000";
     public UserMessage(String username, String password) {
         this.username=username;
         this.password=password;

@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.healthy.wp.UserLogin.model.UserMessage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by wan_g_000 on 2016/5/21.
  */
@@ -12,6 +15,7 @@ public class MyApplycation extends Application {
     String password;
     String id;
     UserMessage user;
+        List<UserMessage> users = new ArrayList<UserMessage>();
     public final String initValue="customer";
     public void onCreate() {
         super.onCreate();

@@ -26,7 +26,6 @@ public class LoginPresenter {
         this.callBack = callBack;
         loginModel = new LoginModel(context);
     }
-
     public LoginPresenter(UserMessage user, Context context, RefreshIT mrefreshIT) {
         this.user = user;
         this.context = context;

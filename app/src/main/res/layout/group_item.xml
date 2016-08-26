@@ -33,11 +33,10 @@
             android:text="New Text"
             android:textSize="16sp" />
 
-        <GridView
+        <com.healthy.wp.SmallCircle.View.MyGridView
             android:id="@+id/gidpic"
-            android:layout_weight="1"
-            android:layout_height="300dp"
-            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:layout_width="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"

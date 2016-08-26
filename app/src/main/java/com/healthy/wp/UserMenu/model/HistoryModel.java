@@ -18,7 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,16 +41,15 @@ public class HistoryModel {
                 // TODO Auto-generated method stub
                 try {
                     JSONObject js = new JSONObject(arg0.toString());
+                    Log.d("Tag", "PuT---->" + js.toString());
+
                     parseJson(js.toString());
                     history.RefreshData(users);
-                    System.out.println("6666" + js.toString());
-                    Log.d("Tag", "PuT---->" + js.toString());
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
-                System.out.println("8888" + arg0.toString());
             }
         }, new Response.ErrorListener() {
             @Override
@@ -78,7 +80,7 @@ public class HistoryModel {
                 UserMessage userMessage = new UserMessage();
                 JSONObject jsonObject = (JSONObject) array.get(i);
                 Log.d("Tag","history"+jsonObject.toString());
-                userMessage.setDate(jsonObject.getString(UrlConfig.HISTORYDATE));
+                userMessage.setDate(DealDate(jsonObject.getString(UrlConfig.HISTORYDATE)));
                 userMessage.setFatRate(jsonObject.getString(UrlConfig.FATRATE));
                 userMessage.setMoisture(jsonObject.getString(UrlConfig.MOISTURE));
                 userMessage.setWeight(jsonObject.getString(UrlConfig.WEIGHT));
@@ -88,5 +90,21 @@ public class HistoryModel {
             e.printStackTrace();
         }
     }
+    public String DealDate(String date){
+//        String []s = date.split(" ");
+//        System.out.println(s[0]);
+//        Date d = new Date(s[0]);
+//        Date date = new Date("as");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date d=null;
+
+        try {
+            d=  sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return  sdf.format(d);
+    }
+
 
 }

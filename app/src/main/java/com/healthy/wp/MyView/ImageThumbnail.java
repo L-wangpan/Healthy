@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 public class ImageThumbnail {
     public static int reckonThumbnail(int oldWidth, int oldHeight,
                                       int newWidth, int newHeight) {

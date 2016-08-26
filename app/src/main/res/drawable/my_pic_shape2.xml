@@ -12,10 +12,10 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/background" >
+        android:color="@color/white" >
     </stroke>
 
-    <solid android:color="#c4aa88" />
+    <solid android:color="@color/white" />
 
     <size
         android:height="100dp"

@@ -46,7 +46,6 @@ public class MyFragment extends Fragment{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getActivity(), "ok", Toast.LENGTH_LONG).show();
 				Intent intent = new Intent();
 				intent.setClass(getActivity(), PlanActivity.class);
 				intent.putExtra("flag", "2");
